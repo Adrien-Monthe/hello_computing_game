@@ -46,6 +46,11 @@ app.post("/api/:name/calc", (req, res) => {
       } else if (a <= 0 || b <= 0 || c <= 0) {
         messageStatus = 400;
         message = "a, b and c must be positive numbers! verify your data";
+      } else if(!((a + b > c)&&(b + c > a)
+          &&(c + a > b))) {
+        messageStatus = 400;
+        message = "A triangle is a valid triangle, If and only If, the sum of any two sides of a triangle is greater than the third side.";
+
       } else {
         let trianglePerimeter = a + b + c;
         let s = trianglePerimeter / 2;

@@ -2,50 +2,28 @@
 
   <h1 style="text-align: center">Choose a Shape</h1>
 
-  <div *ngFor="let shape of geometricShapes" class="col-md-3"> <br>
+  <div *ngFor="let shape of geometricShapes" class="col-md-3"><br>
     <h2>{{ shape}}</h2>
-    <div class="{{ shape }}" (click)="clickShape(shape)" ></div>
+    <div (click)="clickShape(shape)" class="{{ shape }}"></div>
 
   </div>
 
   <br>
 
 
-  <div   style="padding-top: 20px">
+  <div style="padding-top: 20px">
     <hr style="color: black">
 
 
-    <div class="row" [hidden]="circleBoolean">
-     <div class="col-md-6">
-       <form  (ngSubmit)="calcCircle()" [formGroup]="circleForm">
-         <div class="row">
-           <div class="col-md-8 col-12">
-             <input type="text" class="form-control" formControlName="r" placeholder="Enter the radius in cm">
-           </div>
-           <div class="col-md-4 col-12">
-             <input type="submit" class=" btn btn-primary form-control">
-           </div>
-         </div>
-
-       </form>
-     </div>
+    <div [hidden]="circleBoolean" class="row">
       <div class="col-md-6">
-        <div class="vl"></div>
-
-      </div>
-
-
-    </div>
-
-    <div class="row" [hidden]="squareBoolean">
-      <div class="col-md-6">
-        <form  (ngSubmit)="calcSquare()" [formGroup]="squareForm">
+        <form (ngSubmit)="calcCircle('circle')" [formGroup]="circleForm">
           <div class="row">
             <div class="col-md-8 col-12">
-             <input type="text" class="form-control" formControlName="l" placeholder="Enter the side length in cm">
+              <input class="mb-4 form-control" formControlName="r" placeholder="Enter the radius in cm" type="text">
             </div>
             <div class="col-md-4 col-12">
-              <input type="submit" class=" btn btn-primary form-control">
+              <input class=" btn btn-primary form-control" type="submit">
             </div>
           </div>
 
@@ -59,16 +37,16 @@
 
     </div>
 
-    <div class="row" [hidden]="rectangleBoolean">
+    <div [hidden]="squareBoolean" class="row">
       <div class="col-md-6">
-        <form  (ngSubmit)="calcRectangle()" [formGroup]="circleForm">
+        <form (ngSubmit)="calcSquare('square')" [formGroup]="squareForm">
           <div class="row">
             <div class="col-md-8 col-12">
-              <input type="text" class=" mb-4 form-control" formControlName="l" placeholder="Enter the lenght in cm">
-              <input type="text" class=" mb-4 form-control" formControlName="w" placeholder="Enter the width in cm">
+              <input class=" mb-4 form-control" formControlName="l" placeholder="Enter the side length in cm"
+                     type="text">
             </div>
             <div class="col-md-4 col-12">
-              <input type="submit" class=" btn btn-primary form-control">
+              <input class=" btn btn-primary form-control" type="submit">
             </div>
           </div>
 
@@ -82,17 +60,16 @@
 
     </div>
 
-    <div class="row" [hidden]="triangleBoolean">
+    <div [hidden]="rectangleBoolean" class="row">
       <div class="col-md-6">
-        <form  (ngSubmit)="calcTriangle()" [formGroup]="triangleForm">
+        <form (ngSubmit)="calcRectangle('rectangle')" [formGroup]="rectangleForm">
           <div class="row">
             <div class="col-md-8 col-12">
-              <input type="text" class=" mb-2 form-control" formControlName="a" placeholder="Side 1 in cm">
-              <input type="text" class=" mb-2 form-control" formControlName="b" placeholder="Side 2 in cm">
-              <input type="text" class="mb-2 form-control" formControlName="c" placeholder="Side 3 in cm">
+              <input class=" mb-4 form-control" formControlName="l" placeholder="Enter the lenght in cm" type="text">
+              <input class=" mb-4 form-control" formControlName="w" placeholder="Enter the width in cm" type="text">
             </div>
             <div class="col-md-4 col-12">
-              <input type="submit" class=" btn btn-primary form-control">
+              <input class=" btn btn-primary form-control" type="submit">
             </div>
           </div>
 
@@ -106,13 +83,51 @@
 
     </div>
 
+    <div [hidden]="triangleBoolean" class="row">
+      <div class="col-md-6">
+        <form (ngSubmit)="calcTriangle('triangle')" [formGroup]="triangleForm">
+          <div class="row">
+            <div class="col-md-8 col-12">
+              <input class=" mb-2 form-control" formControlName="a" placeholder="Side 1 in cm" type="text">
+              <input class=" mb-2 form-control" formControlName="b" placeholder="Side 2 in cm" type="text">
+              <input class="mb-2 form-control" formControlName="c" placeholder="Side 3 in cm" type="text">
+            </div>
+            <div class="col-md-4 col-12">
+              <input class=" btn btn-primary form-control" type="submit">
+            </div>
+          </div>
+
+        </form>
+      </div>
+      <div class="col-md-6">
+        <div class="vl"></div>
+
+      </div>
 
 
+    </div>
 
+    <p [hidden]="!errorStatus" style="color: red">{{ errorMessage }}</p>
+
+    <div [hidden]="!successStatus" class="row">
+
+      <div class="col-md-8 row">
+        <div class="col-md-6">
+          <p> Perimeter : {{ calculatedData ? calculatedData.perimeter : '' }} cm</p>
+        </div>
+        <div class="col-md-6">
+          <p> Area : {{ calculatedData ? calculatedData.area : '' }} cm2</p>
+        </div>
+
+
+      </div>
+      <div class="col-md-4">
+
+      </div>
+
+    </div>
 
   </div>
-
-
 
 
 </div>

@@ -13,6 +13,10 @@ export class AppComponent {
   rectangleBoolean : boolean = true;
   circleBoolean : boolean = true;
   squareBoolean : boolean = true;
+  errorMessage: string = '';
+  errorStatus: boolean = false;
+  successStatus: boolean = false;
+  calculatedData : any;
 
   rectangleForm = this.formBuilder.group({
     l: '',
@@ -47,7 +51,8 @@ export class AppComponent {
   }
 
   clickShape(shape: any){
-
+    this.errorStatus = false;
+    this.successStatus = false;
     switch (shape){
       case 'triangle':
         this.triangleBoolean = false;
@@ -77,19 +82,58 @@ export class AppComponent {
     }
   }
 
-  calcTriangle(){
-    alert('you have selected the triangle')
+  calcTriangle(shape:string){
+    this.api.calcGeometricFigure({ a : Number(this.triangleForm.value.a), b : Number(this.triangleForm.value.b), c : Number(this.triangleForm.value.c )}, shape ).subscribe((data)=>{
+      this.errorStatus = false;
+      this.successStatus = true;
+      this.calculatedData = data;
+
+    },(error => {
+      this.errorMessage = error.error;
+      this.errorStatus = true;
+      this.successStatus = false;
+
+    }));
   }
 
-  calcRectangle(){
+  calcRectangle(shape:string){
+    this.api.calcGeometricFigure({ l : Number(this.rectangleForm.value.l), w : Number(this.rectangleForm.value.w)}, shape ).subscribe((data)=>{
+      this.errorStatus = false;
+      this.successStatus = true;
+      this.calculatedData = data;
 
+    },(error => {
+      this.errorMessage = error.error;
+      this.errorStatus = true;
+
+    }));
   }
 
-  calcSquare(){
 
+
+  calcSquare(shape: string){
+    this.api.calcGeometricFigure({ l : Number(this.squareForm.value.l), w : Number(this.squareForm.value.l)}, shape ).subscribe((data)=>{
+      this.errorStatus = false;
+      this.successStatus = true;
+      this.calculatedData = data;
+
+    },(error => {
+      this.errorMessage = error.error;
+      this.errorStatus = true;
+
+    }));
   }
 
-  calcCircle(){
-    alert(this.circleForm.value.r);
+  calcCircle(shape:string){
+    this.api.calcGeometricFigure({ r : Number(this.circleForm.value.r)}, shape ).subscribe((data)=>{
+      this.errorStatus = false;
+      this.successStatus = true;
+      this.calculatedData = data;
+
+    },(error => {
+      this.errorMessage = error.error;
+      this.errorStatus = true;
+
+    }));
   }
 }
