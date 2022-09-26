@@ -1,17 +1,122 @@
-<div>
-  <h1>Choose a Shape</h1>
+<div class="container row">
+
+  <h1 style="text-align: center">Choose a Shape</h1>
+
+  <div *ngFor="let shape of geometricShapes" class="col-md-3"> <br>
+    <h2>{{ shape}}</h2>
+    <div class="{{ shape }}" (click)="clickShape(shape)" ></div>
+
+  </div>
+
   <br>
-  <h2>Square</h2>
-  <div class="square" ></div>
 
-  <h2>Triangle</h2>
-  <div class="triangle"></div>
 
-  <h2>rectangle</h2>
-  <div class="rectangle"></div>
+  <div   style="padding-top: 20px">
+    <hr style="color: black">
 
-  <h2>Circle</h2>
-  <div class="circle"></div>
+
+    <div class="row" [hidden]="circleBoolean">
+     <div class="col-md-6">
+       <form  (ngSubmit)="calcCircle()" [formGroup]="circleForm">
+         <div class="row">
+           <div class="col-md-8 col-12">
+             <input type="text" class="form-control" formControlName="r" placeholder="Enter the radius in cm">
+           </div>
+           <div class="col-md-4 col-12">
+             <input type="submit" class=" btn btn-primary form-control">
+           </div>
+         </div>
+
+       </form>
+     </div>
+      <div class="col-md-6">
+        <div class="vl"></div>
+
+      </div>
+
+
+    </div>
+
+    <div class="row" [hidden]="squareBoolean">
+      <div class="col-md-6">
+        <form  (ngSubmit)="calcSquare()" [formGroup]="squareForm">
+          <div class="row">
+            <div class="col-md-8 col-12">
+             <input type="text" class="form-control" formControlName="l" placeholder="Enter the side length in cm">
+            </div>
+            <div class="col-md-4 col-12">
+              <input type="submit" class=" btn btn-primary form-control">
+            </div>
+          </div>
+
+        </form>
+      </div>
+      <div class="col-md-6">
+        <div class="vl"></div>
+
+      </div>
+
+
+    </div>
+
+    <div class="row" [hidden]="rectangleBoolean">
+      <div class="col-md-6">
+        <form  (ngSubmit)="calcRectangle()" [formGroup]="circleForm">
+          <div class="row">
+            <div class="col-md-8 col-12">
+              <input type="text" class=" mb-4 form-control" formControlName="l" placeholder="Enter the lenght in cm">
+              <input type="text" class=" mb-4 form-control" formControlName="w" placeholder="Enter the width in cm">
+            </div>
+            <div class="col-md-4 col-12">
+              <input type="submit" class=" btn btn-primary form-control">
+            </div>
+          </div>
+
+        </form>
+      </div>
+      <div class="col-md-6">
+        <div class="vl"></div>
+
+      </div>
+
+
+    </div>
+
+    <div class="row" [hidden]="triangleBoolean">
+      <div class="col-md-6">
+        <form  (ngSubmit)="calcTriangle()" [formGroup]="triangleForm">
+          <div class="row">
+            <div class="col-md-8 col-12">
+              <input type="text" class=" mb-2 form-control" formControlName="a" placeholder="Side 1 in cm">
+              <input type="text" class=" mb-2 form-control" formControlName="b" placeholder="Side 2 in cm">
+              <input type="text" class="mb-2 form-control" formControlName="c" placeholder="Side 3 in cm">
+            </div>
+            <div class="col-md-4 col-12">
+              <input type="submit" class=" btn btn-primary form-control">
+            </div>
+          </div>
+
+        </form>
+      </div>
+      <div class="col-md-6">
+        <div class="vl"></div>
+
+      </div>
+
+
+    </div>
+
+
+
+
+
+  </div>
+
+
+
+
 </div>
+
+
 
 

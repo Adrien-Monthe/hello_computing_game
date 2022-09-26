@@ -2,6 +2,9 @@ import express from "express";
 import bodyParser from "body-parser";
 
 const app = express();
+const cors = require('cors');
+app.use(cors());
+app.options('*', cors());
 
 app.use(bodyParser.json());
 
@@ -14,7 +17,9 @@ const units = {
   kilometer: { unit: "km" },
 };
 
-app.get("/api/shapes", (req, res) => res.send("Hello!"));
+app.get("/api/shapes", (req, res) => {
+  res.status(200).send(geometricShapes);
+});
 
 app.post("/api/:name/calc", (req, res) => {
   const geometricShape = req.params.name.toLowerCase();
