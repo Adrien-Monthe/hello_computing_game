@@ -10,15 +10,31 @@ app.use(bodyParser.json());
 
 const geometricShapes = ["triangle", "rectangle", "square", "circle"];
 
-const units = {
-  centimeter: { unit: "cm" },
-  decimeter: { unit: "dm" },
-  meter: { unit: "m" },
-  kilometer: { unit: "km" },
-};
+const units = [
+  {
+    name:"centimeters",
+    unit: "cm"
+  },
+  {
+    name:"decimeters",
+    unit: "dm"
+  },
+  {
+    name:"meters",
+    unit: "m"
+  },
+  {
+    name:"kilometers",
+    unit: "km"
+  }
+];
 
 app.get("/api/shapes", (req, res) => {
-  res.status(200).send(geometricShapes);
+  res.status(200).json(geometricShapes);
+});
+
+app.get("/api/units", (req, res) => {
+  res.status(200).json(units);
 });
 
 app.post("/api/:name/calc", (req, res) => {

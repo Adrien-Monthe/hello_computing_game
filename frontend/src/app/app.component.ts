@@ -8,7 +8,9 @@ import {FormBuilder} from "@angular/forms";
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+
   geometricShapes : any;
+  geometricUnits : any;
   triangleBoolean : boolean = true;
   rectangleBoolean : boolean = true;
   circleBoolean : boolean = true;
@@ -17,6 +19,7 @@ export class AppComponent {
   errorStatus: boolean = false;
   successStatus: boolean = false;
   calculatedData : any;
+  convertedData : any;
 
   rectangleForm = this.formBuilder.group({
     l: '',
@@ -37,6 +40,11 @@ export class AppComponent {
     r: ''
   });
 
+  conversionForm = this.formBuilder.group({
+    unit : 'cm'
+  });
+
+
 
   constructor(private api:ApiService, private formBuilder: FormBuilder,) {
 
@@ -46,6 +54,11 @@ export class AppComponent {
     this.geometricShapes = [];
     this.api.getGeometricShapes().subscribe((data)=>{
       this.geometricShapes = data;
+    });
+
+    this.geometricUnits = [];
+    this.api.getGeometricUnits().subscribe((data)=>{
+      this.geometricUnits = data;
     });
 
   }
@@ -87,6 +100,7 @@ export class AppComponent {
       this.errorStatus = false;
       this.successStatus = true;
       this.calculatedData = data;
+      this.convertedData = this.calculatedData;
 
     },(error => {
       this.errorMessage = error.error;
@@ -101,6 +115,7 @@ export class AppComponent {
       this.errorStatus = false;
       this.successStatus = true;
       this.calculatedData = data;
+      this.convertedData = this.calculatedData;
 
     },(error => {
       this.errorMessage = error.error;
@@ -116,6 +131,7 @@ export class AppComponent {
       this.errorStatus = false;
       this.successStatus = true;
       this.calculatedData = data;
+      this.convertedData = this.calculatedData;
 
     },(error => {
       this.errorMessage = error.error;
@@ -129,11 +145,35 @@ export class AppComponent {
       this.errorStatus = false;
       this.successStatus = true;
       this.calculatedData = data;
+      this.convertedData = JSON.parse(JSON.stringify(this.calculatedData));
 
     },(error => {
       this.errorMessage = error.error;
       this.errorStatus = true;
 
     }));
+  }
+
+  convertUnit() {
+
+    switch(this.conversionForm.value.unit){
+      case 'cm':
+        this.convertedData = JSON.parse(JSON.stringify(this.calculatedData));
+        break;
+      case 'dm':
+        this.convertedData.perimeter = this.calculatedData.perimeter / 10 ;
+        this.convertedData.area = this.calculatedData.area / 100 ;
+        break;
+      case 'm':
+        this.convertedData.perimeter = this.calculatedData.perimeter / 100 ;
+        this.convertedData.area = this.calculatedData.area / 10000 ;
+        break;
+      case 'km':
+        this.convertedData.perimeter = this.calculatedData.perimeter / 100000 ;
+        this.convertedData.area = this.calculatedData.area / 10000000000 ;
+        break;
+
+    }
+
   }
 }

@@ -109,21 +109,45 @@
 
     <p [hidden]="!errorStatus" style="color: red">{{ errorMessage }}</p>
 
-    <div [hidden]="!successStatus" class="row">
+    <div [hidden]="!successStatus">
 
-      <div class="col-md-8 row">
-        <div class="col-md-6">
-          <p> Perimeter : {{ calculatedData ? calculatedData.perimeter : '' }} cm</p>
-        </div>
-        <div class="col-md-6">
-          <p> Area : {{ calculatedData ? calculatedData.area : '' }} cm2</p>
-        </div>
+      <div class="row">
+        <div class="col-md-6 ">
+          <form (ngSubmit)="convertUnit()" [formGroup]="conversionForm">
+            <div class="row">
+              <div class="col-md-8 col-12">
+                <select class=" mb-2 form-control" formControlName="unit" (change)="convertUnit()">
+                  <option *ngFor="let u of geometricUnits" [ngValue]="u.unit">{{u.name}}</option>
+                </select>
+              </div>
+              <div class="col-md-4 col-12">
+                <button class="btn btn-outline-primary form-control" type="submit"> Convert</button>
+              </div>
+            </div>
+          </form>
 
+
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-8 row">
+
+          <div class="col-md-6">
+            <p> Perimeter : {{ convertedData ? convertedData.perimeter : '' }} {{conversionForm.value.unit}}</p>
+          </div>
+          <div class="col-md-6">
+            <p> Area : {{ convertedData ? convertedData.area : '' }} {{conversionForm.value.unit}}2</p>
+          </div>
+
+
+        </div>
+        <div class="col-md-4">
+
+        </div>
 
       </div>
-      <div class="col-md-4">
 
-      </div>
 
     </div>
 
